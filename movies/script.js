@@ -12,6 +12,25 @@ const getMovies = async () => {
   return result;
 };
 
+const showMovies = async ({ results }) => {
+  main.innerHTML = "";
+
+  results.forEach((element) => {
+    const { countries, year, image, rating, titleOriginal } = element;
+    const movieEl = document.createElement("div");
+    movieEl.classList.add("movie");
+    movieEl.innerHTML = `
+      <div>
+        ${titleOriginal}
+      </div>
+    `;
+
+    document.querySelector("#main").appendChild(movieEl);
+  });
+};
+
+getMovies().then((movies) => showMovies(movies));
+
 const { form } = document.forms;
 console.log("form :>> ", form);
 
