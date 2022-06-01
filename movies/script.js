@@ -16,23 +16,39 @@ const showMovies = async ({ results }) => {
   main.innerHTML = "";
 
   results.forEach((element) => {
-    const { countries, year, image, rating, titleOriginal } = element;
+    const { countries, year, image, rating, titleOriginal, description } =
+      element;
     const movieEl = document.createElement("div");
     movieEl.classList.add("movie");
     movieEl.innerHTML = `
-      <div>
+      <div class='movie'>
+      <img src='${image}' alt='${titleOriginal}'/>
+      <div class="movie-info">
+        <h3>
         ${titleOriginal}
+        <h3>
+        <span class='${
+          parseInt(rating) > 5 ? "green" : "orange"
+        }'>${rating}</span>
+      </div>
+      <div class='overview'>
+        <h2>Owerview</h2>
+        <h3>
+        ${countries.map((el) => " " + el.name)}
+        </h3>
+        ${year}
+        ${description}
+      </div>
       </div>
     `;
 
-    document.querySelector("#main").appendChild(movieEl);
+    main.appendChild(movieEl);
   });
 };
 
 getMovies().then((movies) => showMovies(movies));
 
 const { form } = document.forms;
-console.log("form :>> ", form);
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
