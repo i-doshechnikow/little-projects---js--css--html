@@ -1,3 +1,5 @@
+let allMovies;
+
 const getMovies = async () => {
   const req = await fetch(MOVIES_URL, {
     method: "GET",
@@ -46,7 +48,10 @@ const showMovies = async ({ results }) => {
   });
 };
 
-getMovies().then((movies) => showMovies(movies));
+getMovies().then((movies) => {
+  allMovies = { results: [...movies.results] };
+  showMovies(movies);
+});
 
 const { form } = document.forms;
 
@@ -56,6 +61,16 @@ form.addEventListener("submit", (event) => {
 
   if (value !== "") {
     search.value = "";
+    const values = {
+      results: allMovies.results.filter((el) => {
+        return (
+          el.titleOriginal.toLowerCase().indexOf(value.toLowerCase()) !== -1
+        );
+      }),
+    };
+    showMovies(values);
+  } else {
+    showMovies(allMovies);
   }
 });
 
