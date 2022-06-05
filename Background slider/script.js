@@ -6,12 +6,7 @@ const photos = document.querySelectorAll('.slide');
 
 let photoPointer = 0;
 
-rightButton.addEventListener('click', (event) => {
-    photoPointer++;
-    if (photoPointer === photos.length) {
-        photoPointer = 0;
-    }
-
+const changeImage = () => {
     photos.forEach((element, ind) => {
         if (ind === photoPointer) {
             element.classList.add('active')
@@ -20,6 +15,14 @@ rightButton.addEventListener('click', (event) => {
             element.classList.remove('active')
         }
     })
+}
+
+rightButton.addEventListener('click', (event) => {
+    photoPointer++;
+    if (photoPointer === photos.length) {
+        photoPointer = 0;
+    }
+    changeImage(photoPointer);
 })
 
 leftButton.addEventListener('click', (event) => {
@@ -27,13 +30,5 @@ leftButton.addEventListener('click', (event) => {
     if (photoPointer < 0) {
         photoPointer = photos.length - 1;
     }
-
-    photos.forEach((element, ind) => {
-        if (ind === photoPointer) {
-            element.classList.add('active')
-            body.style.backgroundImage = element.style.backgroundImage
-        } else {
-            element.classList.remove('active')
-        }
-    })
+    changeImage(photoPointer);
 })
