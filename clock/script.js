@@ -4,19 +4,25 @@ const hourNeedle = document.querySelector(".hour");
 const minuteNeedle = document.querySelector(".minute");
 const secondNeedle = document.querySelector(".second");
 
+const updateNeedle = (curentNeedle, currentType) => {
+  const ye = {
+    hours: { method: "getHours", max: 12 },
+    minutes: { method: "getMinutes", max: 60 },
+    seconds: { method: "getSeconds", max: 60 },
+  };
+
+  const { method, max } = ye[currentType];
+
+  const currentPosition = currentDate[method]() / max;
+  curentNeedle.style.transform = `translate(-50%, -100%) rotate(${currentPosition}turn)`;
+};
+
 const updateClock = () => {
   currentDate = new Date();
-  hourNeedle.style.transform = `translate(-50%, -100%) rotate(${
-    currentDate.getHours() / 12
-  }turn)`;
 
-  minuteNeedle.style.transform = `translate(-50%, -100%) rotate(${
-    currentDate.getMinutes() / 60
-  }turn)`;
-
-  secondNeedle.style.transform = `translate(-50%, -100%) rotate(${
-    currentDate.getSeconds() / 60
-  }turn)`;
+  updateNeedle(secondNeedle, "seconds");
+  updateNeedle(minuteNeedle, "minutes");
+  updateNeedle(hourNeedle, "hours");
 };
 
 setInterval(updateClock, 1000);
