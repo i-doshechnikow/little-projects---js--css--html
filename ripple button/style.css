@@ -30,8 +30,9 @@ button {
   position: relative;
 }
 
-button:focus {
+button:active {
   outline: none;
+  transform: scale(0.99);
 }
 
 button .circle {
