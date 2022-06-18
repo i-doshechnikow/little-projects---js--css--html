@@ -1,7 +1,10 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
+const sizeBlock = document.querySelector("#size");
+const increaseBtn = document.querySelector(".increase");
+const decreaseBtn = document.querySelector(".decrease");
 
-const SIZE = 5;
+let SIZE = 5;
 const COLOR = "black";
 let x;
 let y;
@@ -26,10 +29,23 @@ canvas.addEventListener("mousemove", (e) => {
     y2 = e.offsetY;
     drawCircle(x2, y2);
     drawLine(x, y, x2, y2);
+    x = x2;
+    y = y2;
   }
+});
 
-  x = x2;
-  y = y2;
+increaseBtn.addEventListener("click", (e) => {
+  if (SIZE < 100) {
+    SIZE += 1;
+    sizeBlock.innerText = SIZE;
+  }
+});
+
+decreaseBtn.addEventListener("click", (e) => {
+  if (SIZE > 1) {
+    SIZE -= 1;
+    sizeBlock.innerText = SIZE;
+  }
 });
 
 function drawCircle(x, y) {
