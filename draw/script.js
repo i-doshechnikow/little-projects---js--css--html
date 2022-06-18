@@ -47,7 +47,3 @@ function drawLine(x1, y1, x2, y2) {
   ctx.lineWidth = SIZE * 2;
   ctx.stroke();
 }
-
-drawCircle(100, 200);
-
-drawLine(70, 250, 200, 300);
